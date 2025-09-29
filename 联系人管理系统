@@ -1,0 +1,54 @@
+class Contact:
+    def __init__(self, name, phone, email):
+        self.name = name
+        self.phone = phone
+        self.email = email
+
+    def __str__(self):
+        return f"{self.name} | Phone: {self.phone} | Email: {self.email}"
+
+
+class ContactBook:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone, email):
+        if name in self.contacts:
+            print(f"Contact {name} already exists.")
+        else:
+            self.contacts[name] = Contact(name, phone, email)
+
+    def remove_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f"Contact {name} removed.")
+        else:
+            print(f"Contact {name} not found.")
+
+    def search_contact(self, name):
+        return self.contacts.get(name, None)
+
+    def show_all(self):
+        if not self.contacts:
+            print("No contacts available.")
+        for contact in self.contacts.values():
+            print(contact)
+
+
+if __name__ == "__main__":
+    book = ContactBook()
+    book.add_contact("Alice", "123456789", "alice@example.com")
+    book.add_contact("Bob", "987654321", "bob@example.com")
+    book.add_contact("Charlie", "555555555", "charlie@example.com")
+
+    print("All contacts:")
+    book.show_all()
+
+    print("\nSearching for Bob:")
+    contact = book.search_contact("Bob")
+    if contact:
+        print("Found:", contact)
+
+    print("\nRemoving Alice...")
+    book.remove_contact("Alice")
+    book.show_all()
